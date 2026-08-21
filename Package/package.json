@@ -1,0 +1,24 @@
+{
+  "name": "com.shade.nekodialogue",
+  "version": "1.0.0",
+  "displayName": "NekoDialogue",
+  "description": "Customizable dialogue and conversation system.",
+  "unity": "6000.0",
+  "author": {
+    "name": "Shade"
+  },
+  "license": "MIT",
+  "licensesUrl": "https://github.com/im-shadee/NekoDialogue/blob/main/Package/LICENSE",
+  "documentationUrl": "https://github.com/im-shadee/NekoDialogue",
+  "dependencies": {
+    "com.unity.localization": "1.5.7",
+    "com.unity.textmeshpro": "3.2.0-pre.2"
+  },
+  "samples": [
+    {
+      "displayName": "Demo Scenes and Dialogue Assets",
+      "description": "Example scenes, NPCs, Dialogue Assets and rigged DialogueManager/InputManager scripts for testing and quick integration.",
+      "path": "Samples~"
+    }
+  ]
+}
