@@ -70,13 +70,13 @@ namespace NekoDialogue
     /// Audio and timing configurations for typewriter blip sound effects associated with a specific dialogue emotion.
     /// </summary>
     [Serializable]
-    public struct EmotionAudioSettings
+    public class EmotionAudioSettings
     {
         [SerializeField, Tooltip("The dialogue emotion state associated with these audio settings.")]
-        private eDialogueEmotion m_Emotion;
+        private eDialogueEmotion m_Emotion = eDialogueEmotion.Neutral;
 
         [SerializeField, Tooltip("Audio clips used for blips. If multiple, one is randomly selected per blip.")]
-        private AudioClip[] m_SoundClips;
+        private AudioClip[] m_SoundClips = new AudioClip[0];
 
         [SerializeField, Range(0f, 3f), Tooltip("The base playback pitch for audio blips.")]
         private float m_BasePitch;
@@ -90,7 +90,7 @@ namespace NekoDialogue
         [SerializeField, Tooltip("Plays a blip every N printable characters (e.g., 2 = every second character).")]
         private int m_CharacterFrequency;
 
-        [SerializeField, Tooltip("Multiplier applied to typewriter delay (e.g., 0.6 = faster text for angry/excited).")]
+        [SerializeField, Min(0f), Tooltip("Multiplier applied to typewriter delay (e.g., 0.6 = faster text for angry/excited).")]
         private float m_SpeedMultiplier;
 
         // Shade: Public read-only properties

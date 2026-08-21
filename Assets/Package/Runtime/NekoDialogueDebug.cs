@@ -27,6 +27,7 @@ namespace NekoDialogue
             return (T)Activator.CreateInstance(typeof(T));
         }
 
+        // Shade: Keep errors visible everywhere so critical issues are never hidden
         /// <summary>
         /// Logs a formatted error message to the Unity console with the package prefix.
         /// </summary>
@@ -35,13 +36,12 @@ namespace NekoDialogue
             Debug.LogError($"<color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color> {message}", context);
         }
 
-#if UNITY_EDITOR
         /// <summary>
         /// Logs a formatted standard message to the Unity console with the package prefix in Editor builds.
         /// </summary>
         public static void Log(string message, UnityEngine.Object context = null)
         {
-            Debug.Log($"<color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color> {message}", context);
+            if (PackageConfig.ENABLE_LOGS) Debug.Log($"<color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color> {message}", context);
         }
 
         /// <summary>
@@ -49,8 +49,7 @@ namespace NekoDialogue
         /// </summary>
         public static void LogWarning(string message, UnityEngine.Object context = null)
         {
-            Debug.LogWarning($"<color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color> {message}", context);
+            if (PackageConfig.ENABLE_LOGS) Debug.LogWarning($"<color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color> {message}", context);
         }
-#endif
     }
 }
