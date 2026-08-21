@@ -6,7 +6,7 @@ namespace NekoDialogue
     /// <summary>
     /// Utility class providing formatted logging and exception generation tailored for NekoDialogue.
     /// </summary>
-    public static class NekoDialogueErrorLogger
+    public static class NekoDialogueDebug
     {
         private const string m_kPackagePrefix = "[NekoDialogue]";
         private const string m_kPackageNameColorHex = "#B9B9FA";

@@ -30,7 +30,7 @@ namespace NekoDialogue.Core.Conversation
             {
                 eDialogueTextMode.Plain => m_DialogueText,
                 eDialogueTextMode.Localized => GetSafeLocalizedString(),
-                _ => throw NekoDialogueErrorLogger.CreateException<ArgumentOutOfRangeException>
+                _ => throw NekoDialogueDebug.CreateException<ArgumentOutOfRangeException>
                     ($"DialogueText@GetText: Unsupported dialogue text mode: {m_DialogueTextMode}")
             };
         }

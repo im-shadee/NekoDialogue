@@ -25,7 +25,7 @@ namespace NekoDialogue.Core.Interaction
         {
             if (m_BaseConversation == null)
             {
-                NekoDialogueErrorLogger.LogError($"InteractableElement: No ConversationAsset assigned on {name}.");
+                NekoDialogueDebug.LogError($"InteractableElement: No ConversationAsset assigned on {name}.");
                 return;
             }
 
@@ -72,7 +72,7 @@ namespace NekoDialogue.Core.Interaction
             // Shade: Validate that interactor is non-null and underlying Unity Object reference is alive
             if (interactor == null || interactor as UnityEngine.Object == null)
             {
-                NekoDialogueErrorLogger.LogError("InteractableElement: Interactor passed in Interact() was null or destroyed. Cannot start conversation.");
+                NekoDialogueDebug.LogError("InteractableElement: Interactor passed in Interact() was null or destroyed. Cannot start conversation.");
                 return false;
             }
 
@@ -89,7 +89,7 @@ namespace NekoDialogue.Core.Interaction
         {
             if (conversation == null)
             {
-                NekoDialogueErrorLogger.LogError("InteractableElement: ConversationAsset passed in SetConversationAsset() was null.");
+                NekoDialogueDebug.LogError("InteractableElement: ConversationAsset passed in SetConversationAsset() was null.");
                 return;
             }
 
