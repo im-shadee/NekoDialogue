@@ -8,19 +8,10 @@ namespace NekoDialogue.Core
     /// </summary>
     public interface IDialogueInput
     {
-        /// <summary>
-        /// Fired when a left navigation input is performed.
-        /// </summary>
-        public event Action OnNavigateLeft;
+        public bool NavigateLeft { get; }
 
-        /// <summary>
-        /// Fired when a right navigation input is performed.
-        /// </summary>
-        public event Action OnNavigateRight;
+        public bool NavigateRight { get; }
 
-        /// <summary>
-        /// Fired when a submission or confirmation input is performed.
-        /// </summary>
-        public event Action OnSubmit;
+        public bool Submit { get; }
     }
 }

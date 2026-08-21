@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9742ebd199d75a449a9d2bb191d2b4d5, type: 3}
+  m_Name: MediumVoiceProfile
+  m_EditorClassIdentifier: NekoDialogue.Runtime::NekoDialogue.Core.Audio.VoiceProfileSO
+  m_EditorCharacterName: NPC_Medium
+  m_EmotionSettings:
+  - m_Emotion: 0
+    m_SoundClips:
+    - {fileID: 8300000, guid: f8864c767c0e4bd419e8e4f0ea316724, type: 3}
+    m_BasePitch: 1
+    m_PitchVariance: 0.06
+    m_Volume: 0.8
+    m_CharacterFrequency: 2
+    m_SpeedMultiplier: 1
+  - m_Emotion: 3
+    m_SoundClips:
+    - {fileID: 8300000, guid: f8864c767c0e4bd419e8e4f0ea316724, type: 3}
+    m_BasePitch: 0.76
+    m_PitchVariance: 0.035
+    m_Volume: 0.45
+    m_CharacterFrequency: 3
+    m_SpeedMultiplier: 1.5
+  - m_Emotion: 2
+    m_SoundClips:
+    - {fileID: 8300000, guid: f8864c767c0e4bd419e8e4f0ea316724, type: 3}
+    m_BasePitch: 1.25
+    m_PitchVariance: 0.06
+    m_Volume: 0.95
+    m_CharacterFrequency: 1
+    m_SpeedMultiplier: 0.85

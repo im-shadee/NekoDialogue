@@ -42,7 +42,7 @@ namespace NekoDialogue.Core.Interaction
         public void Interact(IDialogueInitiator interactor)
         {
             if (!CanInteract(interactor)) return;
-            _InstantiateDialogue(m_ConversationToUse, _HandleConversationEnded, interactor);
+            InstantiateDialogue(m_ConversationToUse, HandleConversationEnded, interactor);
         }
         #endregion
 
@@ -53,12 +53,12 @@ namespace NekoDialogue.Core.Interaction
         /// <param name="conversation">Target conversation payload to present.</param>
         /// <param name="onConversationEnded">Callback method invoked when the conversation sequence completes.</param>
         /// <param name="interactor">Optional reference to initiating interactor entity.</param>
-        protected abstract void _InstantiateDialogue(ConversationAsset conversation, Action onConversationEnded, IDialogueInitiator interactor = null);
+        protected abstract void InstantiateDialogue(ConversationAsset conversation, Action onConversationEnded, IDialogueInitiator interactor = null);
 
         /// <summary>
         /// Handles teardown logic, state cleanup, or narrative triggers when conversation finishes.
         /// </summary>
-        protected abstract void _HandleConversationEnded();
+        protected abstract void HandleConversationEnded();
         #endregion
 
         #region Virtual Methods
@@ -81,6 +81,20 @@ namespace NekoDialogue.Core.Interaction
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Resets the active conversation asset back to the base assigned conversation.
+        /// </summary>
+        public void SetBaseConversationAsset()
+        {
+            if (m_BaseConversation == null)
+            {
+                NekoDialogueDebug.LogError("InteractableElement: Cannot refresh because m_BaseConversation is null.");
+                return;
+            }
+
+            m_ConversationToUse = m_BaseConversation;
+        }
+
         /// <summary>
         /// Replaces the active conversation asset with a new instance for conditional dialogue paths.
         /// </summary>

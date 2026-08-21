@@ -47,11 +47,4 @@ namespace NekoDialogue
         Sad,
         Scared
     }
-
-    public enum eFontCase
-    {
-        Uppercase = 0,
-        Lowercase,
-        Smallcaps,
-    }
 }

@@ -1,4 +1,5 @@
 using NekoDialogue.Core.Conversation;
+using System;
 using UnityEngine;
 
 namespace NekoDialogue.Core
@@ -8,6 +9,16 @@ namespace NekoDialogue.Core
     /// </summary>
     public interface IDialogueService
     {
+        /// <summary>
+        /// Fired when a conversation sequence officially begins.
+        /// </summary>
+        public event Action OnConversationStarted;
+
+        /// <summary>
+        /// Fired when the active conversation completes or is terminated.
+        /// </summary>
+        public event Action OnConversationEnded;
+
         /// <summary>
         /// Initiates a new conversation sequence using the provided asset.
         /// </summary>

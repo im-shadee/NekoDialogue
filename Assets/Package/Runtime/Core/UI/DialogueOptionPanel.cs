@@ -36,9 +36,6 @@ namespace NekoDialogue.Core.UI
         [SerializeField, Tooltip("Reference to the Canvas parenting this panel element.")]
         private Canvas m_Canvas = null;
 
-        [SerializeField, Tooltip("CanvasGroup component controlling visibility and raycasting for option choices.")]
-        private CanvasGroup m_CanvasGroup = null;
-
         [Header("Font Settings")]
         [SerializeField, Tooltip("The min/max bounds applied to option text font auto-sizing.")]
         private Vector2 m_FontBounds = new Vector2(8f, 52f);
@@ -46,6 +43,9 @@ namespace NekoDialogue.Core.UI
         [Header("Cursor Settings")]
         [SerializeField, Tooltip("The UI cursor object pointing to the selected option.")]
         private RectTransform m_MenuCursor = null;
+
+        [SerializeField, Tooltip("CanvasGroup component controlling visibility and raycasting for option choices.")]
+        private CanvasGroup m_CursorCanvasGroup = null;
 
         [SerializeField, Tooltip("Local position offset applied to the cursor relative to target option edges.")]
         private Vector2 m_CursorOffset = Vector2.zero;
@@ -65,16 +65,26 @@ namespace NekoDialogue.Core.UI
                 NekoDialogueDebug.LogError($"DialogueOptionPanel: m_Canvas is not assigned on {name}.", this);
             }
 
-            if (m_CanvasGroup == null)
+            if (m_CursorCanvasGroup == null)
             {
                 NekoDialogueDebug.LogError($"DialogueOptionPanel: m_CanvasGroup is not assigned on {name}.", this);
             }
+        }
+
+        private void Update()
+        {
+            if (InputProvider == null || (InputProvider is UnityEngine.Object unityObj && unityObj == null)) return;
+
+            if (InputProvider.Submit) HandleSubmit();
+
+            if (InputProvider.NavigateLeft) HandleNavigateLeft();
+            else if (InputProvider.NavigateRight) HandleNavigateRight();
         }
         #endregion
 
         #region Visibility API
         /// <summary>
-        /// Opens the panel, resets input selections, and subscribes to input navigation events.
+        /// Opens the panel, and resets input selections.
         /// </summary>
         public void OnOpen()
         {
@@ -83,13 +93,11 @@ namespace NekoDialogue.Core.UI
             // Shade: Reset selected option index to default
             m_SelectedOption = 0;
 
-            _SubscribeInputEvents();
-
-            if (m_CanvasGroup != null)
+            if (m_CursorCanvasGroup != null)
             {
-                m_CanvasGroup.alpha = 1f;
-                m_CanvasGroup.blocksRaycasts = true;
-                m_CanvasGroup.interactable = true;
+                m_CursorCanvasGroup.alpha = 1f;
+                m_CursorCanvasGroup.blocksRaycasts = true;
+                m_CursorCanvasGroup.interactable = true;
             }
         }
 
@@ -103,7 +111,6 @@ namespace NekoDialogue.Core.UI
 
             // Shade: Clear callback references and input event subscriptions
             m_OnOptionSelected = null;
-            _UnsubscribeInputEvents();
 
             if (m_CursorMoveRoutine != null)
             {
@@ -112,56 +119,16 @@ namespace NekoDialogue.Core.UI
             }
 
             // Shade: Destroy dynamic options and clear cached lists
-            _Cleanup();
+            Cleanup();
 
-            if (m_CanvasGroup != null)
+            if (m_CursorCanvasGroup != null)
             {
-                m_CanvasGroup.alpha = 0f;
-                m_CanvasGroup.blocksRaycasts = false;
-                m_CanvasGroup.interactable = false;
+                m_CursorCanvasGroup.alpha = 0f;
+                m_CursorCanvasGroup.blocksRaycasts = false;
+                m_CursorCanvasGroup.interactable = false;
             }
 
             gameObject.SetActive(false);
-        }
-        #endregion
-
-        #region Event Handlers
-        private void _SubscribeInputEvents()
-        {
-            if (!_InputProviderNotNull()) return;
-
-            InputProvider.OnNavigateLeft += _HandleNavigateLeft;
-            InputProvider.OnNavigateRight += _HandleNavigateRight;
-            InputProvider.OnSubmit += _HandleSubmit;
-        }
-
-        private void _UnsubscribeInputEvents()
-        {
-            if (!_InputProviderNotNull()) return;
-
-            InputProvider.OnNavigateLeft -= _HandleNavigateLeft;
-            InputProvider.OnNavigateRight -= _HandleNavigateRight;
-            InputProvider.OnSubmit -= _HandleSubmit;
-        }
-
-        private void _HandleNavigateLeft()
-        {
-            _ChooseOption(-1);
-            _UpdateCursor();
-        }
-
-        private void _HandleNavigateRight()
-        {
-            _ChooseOption(1);
-            _UpdateCursor();
-        }
-
-        private void _HandleSubmit()
-        {
-            if (m_bAllowSubmit)
-            {
-                _ResumeDialogue();
-            }
         }
         #endregion
 
@@ -215,13 +182,13 @@ namespace NekoDialogue.Core.UI
 
                 // Shade: Attach and initialize TextMeshPro text component
                 TextMeshProUGUI optionText = textObject.AddComponent<TextMeshProUGUI>();
-                _InitializeText(optionText, optionName, color, fontSize, font);
+                InitializeText(optionText, optionName, color, fontSize, font);
 
                 m_SpawnedTextFields.Add(optionText);
                 idx++;
             }
 
-            StartCoroutine(_InitialCursorPositionRoutine());
+            StartCoroutine(InitialCursorPositionRoutine());
         }
 
         /// <summary>
@@ -238,7 +205,7 @@ namespace NekoDialogue.Core.UI
 
             if (value)
             {
-                m_EnableSubmitRoutine = StartCoroutine(_EnableSubmitRoutine());
+                m_EnableSubmitRoutine = StartCoroutine(EnableSubmitRoutine());
             }
             else
             {
@@ -248,7 +215,7 @@ namespace NekoDialogue.Core.UI
         #endregion
 
         #region Cursor Update
-        private void _UpdateCursor(bool immediate = false)
+        private void UpdateCursor(bool immediate = false)
         {
             if (m_CursorMoveRoutine != null)
             {
@@ -256,10 +223,10 @@ namespace NekoDialogue.Core.UI
                 m_CursorMoveRoutine = null;
             }
 
-            RectTransform targetTransform = _GetSelectedRect();
+            RectTransform targetTransform = GetSelectedRect();
             if (targetTransform == null || m_MenuCursor == null) return;
 
-            Vector3 targetLocalPoint = _CalculateLeftEdgeLocalPoint(targetTransform, m_MenuCursor.parent as RectTransform);
+            Vector3 targetLocalPoint = CalculateLeftEdgeLocalPoint(targetTransform, m_MenuCursor.parent as RectTransform);
 
             if (immediate || m_CursorMoveDuration <= 0f)
             {
@@ -269,11 +236,11 @@ namespace NekoDialogue.Core.UI
             else
             {
                 // Shade: Smoothly transition cursor without external tween dependencies
-                m_CursorMoveRoutine = StartCoroutine(_AnimateCursorRoutine(targetLocalPoint));
+                m_CursorMoveRoutine = StartCoroutine(AnimateCursorRoutine(targetLocalPoint));
             }
         }
 
-        private IEnumerator _AnimateCursorRoutine(Vector3 targetLocalPoint)
+        private IEnumerator AnimateCursorRoutine(Vector3 targetLocalPoint)
         {
             Vector3 startPosition = m_MenuCursor.localPosition;
             float elapsed = 0f;
@@ -290,27 +257,27 @@ namespace NekoDialogue.Core.UI
             m_CursorMoveRoutine = null;
         }
 
-        private IEnumerator _InitialCursorPositionRoutine()
+        private IEnumerator InitialCursorPositionRoutine()
         {
             // Shade: Wait for layout group calculation frame completion before positioning cursor
             yield return new WaitForEndOfFrame();
-            _UpdateCursor(immediate: true);
+            UpdateCursor(immediate: true);
         }
         #endregion
 
         #region Option Selection Internal Logic
-        private void _ChooseOption(int direction)
+        private void ChooseOption(int direction)
         {
             int targetIndex = m_SelectedOption + direction;
 
-            if (_IndexOutOfBounds(targetIndex)) return;
+            if (IndexOutOfBounds(targetIndex)) return;
 
             m_SelectedOption = targetIndex;
         }
 
-        private void _ResumeDialogue()
+        private void ResumeDialogue()
         {
-            if (_TryGetChosenEntry(out DialogueOptionsEntry conversationOptions))
+            if (TryGetChosenEntry(out DialogueOptionsEntry conversationOptions))
             {
                 Action<DialogueOptionsEntry> callback = m_OnOptionSelected;
 
@@ -326,7 +293,7 @@ namespace NekoDialogue.Core.UI
         #endregion
 
         #region Helpers & Teardown
-        private void _Cleanup()
+        private void Cleanup()
         {
             if (m_SpawnedTextFields == null || m_SpawnedTextFields.Count == 0) return;
 
@@ -341,20 +308,38 @@ namespace NekoDialogue.Core.UI
             m_SpawnedTextFields.Clear();
         }
 
-        private RectTransform _GetSelectedRect()
+        private RectTransform GetSelectedRect()
         {
             if (m_SpawnedTextFields == null || m_SpawnedTextFields.Count == 0) return null;
-            if (_IndexOutOfBounds(m_SelectedOption)) return null;
+            if (IndexOutOfBounds(m_SelectedOption)) return null;
 
             TextMeshProUGUI selectedOption = m_SpawnedTextFields[m_SelectedOption];
             return selectedOption == null ? null : selectedOption.rectTransform;
         }
 
-        private bool _InputProviderNotNull() => InputProvider is UnityEngine.Object obj && obj != null;
+        private bool IndexOutOfBounds(int index) => index < 0 || index >= MaxOptions;
 
-        private bool _IndexOutOfBounds(int index) => index < 0 || index >= MaxOptions;
+        private void HandleNavigateLeft()
+        {
+            ChooseOption(-1);
+            UpdateCursor();
+        }
 
-        private void _InitializeText(TextMeshProUGUI text, string line, Color? color = null, int? fontSize = null, TMP_FontAsset font = null)
+        private void HandleNavigateRight()
+        {
+            ChooseOption(1);
+            UpdateCursor();
+        }
+
+        private void HandleSubmit()
+        {
+            if (m_bAllowSubmit)
+            {
+                ResumeDialogue();
+            }
+        }
+
+        private void InitializeText(TextMeshProUGUI text, string line, Color? color = null, int? fontSize = null, TMP_FontAsset font = null)
         {
             text.color = color ?? Color.white;
 
@@ -371,26 +356,26 @@ namespace NekoDialogue.Core.UI
             text.text = line;
         }
 
-        private IEnumerator _EnableSubmitRoutine()
+        private IEnumerator EnableSubmitRoutine()
         {
             yield return null;
             m_bAllowSubmit = true;
             m_EnableSubmitRoutine = null;
         }
 
-        private bool _TryGetChosenEntry(out DialogueOptionsEntry conversationOptions)
+        private bool TryGetChosenEntry(out DialogueOptionsEntry conversationOptions)
         {
             conversationOptions = default;
 
             if (m_CurrentBranchingEntries == null || m_CurrentBranchingEntries.Length == 0) return false;
-            if (_IndexOutOfBounds(m_SelectedOption)) return false;
+            if (IndexOutOfBounds(m_SelectedOption)) return false;
             if (m_SelectedOption >= m_CurrentBranchingEntries.Length) return false;
 
             conversationOptions = m_CurrentBranchingEntries[m_SelectedOption];
             return true;
         }
 
-        private Vector3 _CalculateLeftEdgeLocalPoint(RectTransform target, RectTransform pointerParent)
+        private Vector3 CalculateLeftEdgeLocalPoint(RectTransform target, RectTransform pointerParent)
         {
             if (target == null || m_Canvas == null || pointerParent == null) return Vector3.zero;
 

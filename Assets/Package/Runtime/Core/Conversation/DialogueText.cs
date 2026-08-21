@@ -19,6 +19,9 @@ namespace NekoDialogue.Core.Conversation
         [SerializeField, Tooltip("The localized string reference used when text mode is set to Localized.")]
         private LocalizedString m_LocalizedDialogueText = null;
 
+        public eDialogueTextMode TextMode => m_DialogueTextMode;
+        public LocalizedString LocalizedString => m_LocalizedDialogueText;
+
         /// <summary>
         /// Retrieves the evaluated dialogue string based on the active <see cref="eDialogueTextMode"/>.
         /// </summary>

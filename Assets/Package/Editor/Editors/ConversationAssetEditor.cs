@@ -92,7 +92,8 @@ namespace NekoDialogue.Editor
             GUIContent gearIcon = EditorGUIUtility.IconContent("_Popup");
             if (GUI.Button(gearRect, gearIcon, EditorStyles.label))
             {
-                DialogueLineEditorWindow.Open(serializedObject, lineProp, lineTag);
+                // Shade: Pass the array property and index to draw sync button
+                DialogueLineEditorWindow.Open(serializedObject, m_ConversationLinesProp, index, lineTag);
             }
 
             // Shade: Render disabled read-only inspector preview

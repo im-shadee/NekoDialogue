@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a682688fe3dea754f92ca57ddf4a2150, type: 3}
+  m_Name: TestConversationBad
+  m_EditorClassIdentifier: NekoDialogue.Runtime::NekoDialogue.Core.Conversation.ConversationAsset
+  m_ConversationLines:
+  - rid: 5769244647225295172
+  - rid: 5769244647225295173
+  references:
+    version: 2
+    RefIds:
+    - rid: 5769244647225295172
+      type: {class: StandardDialogueLine, ns: NekoDialogue.Core.Conversation, asm: NekoDialogue.Runtime}
+      data:
+        m_DialogueTag: testdialogue_greeting_bad_1
+        m_DialogueText:
+          m_DialogueTextMode: 0
+          m_DialogueText: Aw, I'm sorry.
+          m_LocalizedDialogueText:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+            m_LocalVariables: []
+        m_BoxLayout:
+          m_Position: {x: 0, y: 0}
+          m_Offset: {x: 0, y: 0}
+          m_Size: {x: 1600, y: 200}
+          m_BoxPlacement: 7
+        m_BoxStyle: {fileID: 11400000, guid: b8a36afc980e396419fc9b9eef9ad4af, type: 2}
+        m_BoxAnimation: {fileID: 0}
+        m_TailSettings:
+          m_EnableTail: 0
+          m_VerticalEdge: 0
+          m_AutoPositionX: 0
+          m_NormalizedXPosition: 0
+        m_FontSettings:
+          m_Font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+          m_FontSize: 68
+        m_bUseTypeWriter: 1
+        m_DialogueEmotion: 3
+        m_VoiceProfile: {fileID: 11400000, guid: eedf3985a3b4a0e40849f059b985b1b0, type: 2}
+    - rid: 5769244647225295173
+      type: {class: StandardDialogueLine, ns: NekoDialogue.Core.Conversation, asm: NekoDialogue.Runtime}
+      data:
+        m_DialogueTag: testdialogue_greeting_bad_2
+        m_DialogueText:
+          m_DialogueTextMode: 0
+          m_DialogueText: I hope you feel better soon!
+          m_LocalizedDialogueText:
+            m_TableReference:
+              m_TableCollectionName: 
+            m_TableEntryReference:
+              m_KeyId: 0
+              m_Key: 
+            m_FallbackState: 0
+            m_WaitForCompletion: 0
+            m_LocalVariables: []
+        m_BoxLayout:
+          m_Position: {x: 0, y: 0}
+          m_Offset: {x: 0, y: 0}
+          m_Size: {x: 1600, y: 200}
+          m_BoxPlacement: 7
+        m_BoxStyle: {fileID: 11400000, guid: 323b48234a1ba6d48aced06db01d6bbb, type: 2}
+        m_BoxAnimation: {fileID: 0}
+        m_TailSettings:
+          m_EnableTail: 0
+          m_VerticalEdge: 0
+          m_AutoPositionX: 0
+          m_NormalizedXPosition: 0
+        m_FontSettings:
+          m_Font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+          m_FontSize: 68
+        m_bUseTypeWriter: 1
+        m_DialogueEmotion: 2
+        m_VoiceProfile: {fileID: 11400000, guid: eedf3985a3b4a0e40849f059b985b1b0, type: 2}

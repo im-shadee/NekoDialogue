@@ -33,7 +33,7 @@ namespace NekoDialogue
         /// </summary>
         public static void LogError(string message, UnityEngine.Object context = null)
         {
-            Debug.LogError($"<color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color> {message}", context);
+            Debug.LogError($"<b><color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color></b> {message}", context);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace NekoDialogue
         /// </summary>
         public static void Log(string message, UnityEngine.Object context = null)
         {
-            if (PackageConfig.ENABLE_LOGS) Debug.Log($"<color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color> {message}", context);
+            if (PackageConfig.ENABLE_LOGS) Debug.Log($"<b><color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color></b> {message}", context);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace NekoDialogue
         /// </summary>
         public static void LogWarning(string message, UnityEngine.Object context = null)
         {
-            if (PackageConfig.ENABLE_LOGS) Debug.LogWarning($"<color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color> {message}", context);
+            if (PackageConfig.ENABLE_LOGS) Debug.LogWarning($"<b><color={m_kPackageNameColorHex}>{m_kPackagePrefix}</color></b> {message}", context);
         }
     }
 }

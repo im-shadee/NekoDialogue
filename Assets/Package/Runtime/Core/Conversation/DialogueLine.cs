@@ -13,15 +13,17 @@ namespace NekoDialogue.Core.Conversation
     public abstract class DialogueLine
     {
         [Header("Dialogue Text Settings")]
-        [SerializeField, Tooltip("Tag displayed in inspector for this line.")]
-        private string m_DialogueTag = "";
+#if UNITY_EDITOR
+        [SerializeField, Tooltip("Tag displayed in inspector for this line. Used in editor to identify this line.")]
+        private string m_DialogueTag;
+#endif
 
         [SerializeField, Tooltip("The localized or plain text payload displayed in this dialogue line.")]
         private DialogueText m_DialogueText = null;
 
         [Header("Dialogue Box Customization")]
         [SerializeField, Tooltip("The screen placement, offset, and sizing metrics for the dialogue box.")]
-        private DialogueBoxLayout m_BoxLayout = default;
+        private DialogueBoxLayout m_BoxLayout = DialogueBoxLayout.Default;
 
         [SerializeField, Tooltip("The visual theme asset defining background graphics, border colors, and text colors.")]
         private DialogueBoxStyle m_BoxStyle = null;
@@ -74,8 +76,6 @@ namespace NekoDialogue.Core.Conversation
         [Header("Branching Dialogue Settings")]
         [SerializeField, Tooltip("The list of options and their associated conversations. Choosing an option branches into the specified conversation.")]
         private DialogueOptionsEntry[] m_ConversationOptions = new DialogueOptionsEntry[0];
-
-        // Shade: Public read-only properties
         public DialogueOptionsEntry[] ConversationOptions => m_ConversationOptions;
     }
 }

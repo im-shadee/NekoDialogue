@@ -1,6 +1,5 @@
 using NekoDialogue.Core.Conversation;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace NekoDialogue
@@ -64,43 +63,6 @@ namespace NekoDialogue
         public readonly eSpeechBubbleVerticalEdge VerticalEdge => m_VerticalEdge;
         public readonly bool AutoPositionX => m_AutoPositionX;
         public readonly float NormalizedXPosition => Mathf.Clamp(m_NormalizedXPosition, 0f, 1f);
-    }
-
-    /// <summary>
-    /// Audio and timing configurations for typewriter blip sound effects associated with a specific dialogue emotion.
-    /// </summary>
-    [Serializable]
-    public class EmotionAudioSettings
-    {
-        [SerializeField, Tooltip("The dialogue emotion state associated with these audio settings.")]
-        private eDialogueEmotion m_Emotion = eDialogueEmotion.Neutral;
-
-        [SerializeField, Tooltip("Audio clips used for blips. If multiple, one is randomly selected per blip.")]
-        private AudioClip[] m_SoundClips = new AudioClip[0];
-
-        [SerializeField, Range(0f, 3f), Tooltip("The base playback pitch for audio blips.")]
-        private float m_BasePitch;
-
-        [SerializeField, Range(0f, 0.5f), Tooltip("Random pitch jitter added to each blip for natural variance.")]
-        private float m_PitchVariance;
-
-        [SerializeField, Range(0f, 1f), Tooltip("The output playback volume for audio blips.")]
-        private float m_Volume;
-
-        [SerializeField, Tooltip("Plays a blip every N printable characters (e.g., 2 = every second character).")]
-        private int m_CharacterFrequency;
-
-        [SerializeField, Min(0f), Tooltip("Multiplier applied to typewriter delay (e.g., 0.6 = faster text for angry/excited).")]
-        private float m_SpeedMultiplier;
-
-        // Shade: Public read-only properties
-        public readonly eDialogueEmotion Emotion => m_Emotion;
-        public readonly IReadOnlyList<AudioClip> SoundClips => m_SoundClips;
-        public readonly float BasePitch => Mathf.Max(0.1f, m_BasePitch);
-        public readonly float PitchVariance => m_PitchVariance;
-        public readonly float Volume => m_Volume;
-        public readonly int CharacterFrequency => m_CharacterFrequency;
-        public readonly float SpeedMultiplier => m_SpeedMultiplier;
     }
 
     /// <summary>
