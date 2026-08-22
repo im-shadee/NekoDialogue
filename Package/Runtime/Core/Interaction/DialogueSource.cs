@@ -7,7 +7,7 @@ namespace NekoDialogue.Core.Interaction
     /// <summary>
     /// Serves as the base abstract implementation for objects in the scene that trigger dialogue interactions.
     /// </summary>
-    public abstract class InteractableElement : MonoBehaviour, IDialogueTarget
+    public abstract class DialogueSource : MonoBehaviour, IDialogueTarget
     {
         // Shade: Holds reference to the actively assigned conversation asset
         private ConversationAsset m_ConversationToUse = null;

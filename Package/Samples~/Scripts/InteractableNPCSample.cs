@@ -9,7 +9,7 @@ using System;
 /// Binds input events to advance conversations and handles proper cleanup upon dialogue completion.
 /// </summary>
 /// <remarks>(For testing purposes)</remarks>
-public class InteractableNPC : InteractableElement
+public class InteractableNPC : DialogueSource
 {
     private IDialogueService m_CurrentDialogueManager = null;
 
