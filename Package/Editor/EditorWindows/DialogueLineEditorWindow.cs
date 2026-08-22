@@ -66,13 +66,23 @@ namespace NekoDialogue.Editor
 
         private void OnGUI()
         {
-            if (m_SerializedObject == null || m_LineProperty == null)
+            // Shade: Check if the serialized object or its target has become null/destroyed
+            if (m_SerializedObject == null || m_SerializedObject.targetObject == null || m_LineProperty == null)
             {
                 Close();
                 return;
             }
 
-            m_SerializedObject.Update();
+            try
+            {
+                m_SerializedObject.Update();
+            }
+            catch (Exception)
+            {
+                // Shade: Fallback catch if the underlying C++ object is already disposed
+                Close();
+                return;
+            }
 
             // Shade: Render Sync Button if this is not the first entry in the conversation
             if (m_Index > 0)
@@ -118,12 +128,23 @@ namespace NekoDialogue.Editor
             m_SerializedObject.ApplyModifiedProperties();
         }
 
+        private void OnSelectionChange()
+        {
+            // Shade: Automatically close the window if the user selects a different asset or clears selection,
+            // preventing stale references to destroyed/deserialized objects.
+            Close();
+        }
+
         /// <summary>
         /// Safely copies selected layout, theme, and audio parameters from the previous conversation line in the array.
         /// </summary>
         private void SyncWithPreviousLine(List<string> propertiesToSync)
         {
-            if (propertiesToSync == null || propertiesToSync.Count == 0) return;
+            if (propertiesToSync == null || propertiesToSync.Count == 0 
+                || m_SerializedObject == null || m_SerializedObject.targetObject == null)
+            {
+                return;
+            }
 
             // Shade: Apply any uncommitted changes from GUI controls
             m_SerializedObject.ApplyModifiedProperties();
