@@ -11,8 +11,8 @@ namespace NekoDialogue.Core.Interaction
         /// <summary>
         /// Executes interaction behavior when triggered by an interactor entity.
         /// </summary>
-        /// <param name="interactor">The entity initiating the interaction.</param>
-        public void Interact(IDialogueInitiator interactor);
+        /// <param name="initiator">The entity initiating the interaction.</param>
+        public void StartDialogue(IDialogueInitiator initiator);
 
         /// <summary>
         /// Replaces the active conversation asset with a new instance for dynamic dialogue branching.

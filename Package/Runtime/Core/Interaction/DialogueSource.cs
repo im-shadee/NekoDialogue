@@ -38,11 +38,11 @@ namespace NekoDialogue.Core.Interaction
         /// <summary>
         /// Triggers interaction behavior using the assigned dialogue initiator.
         /// </summary>
-        /// <param name="interactor">The entity initiating dialogue.</param>
-        public void Interact(IDialogueInitiator interactor)
+        /// <param name="initiator">The entity initiating dialogue.</param>
+        public void StartDialogue(IDialogueInitiator initiator)
         {
-            if (!CanInteract(interactor)) return;
-            InstantiateDialogue(m_ConversationToUse, HandleConversationEnded, interactor);
+            if (!CanInteract(initiator)) return;
+            InstantiateDialogue(m_ConversationToUse, HandleConversationEnded, initiator);
         }
         #endregion
 
