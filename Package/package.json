@@ -10,6 +10,7 @@
   "license": "MIT",
   "licensesUrl": "https://github.com/im-shadee/NekoDialogue/blob/main/Package/LICENSE",
   "documentationUrl": "https://github.com/im-shadee/NekoDialogue",
+  "changelogUrl": "https://github.com/im-shadee/NekoDialogue/blob/main/CHANGELOG.md",
   "dependencies": {
     "com.unity.localization": "1.5.7",
     "com.unity.textmeshpro": "3.2.0-pre.2"
