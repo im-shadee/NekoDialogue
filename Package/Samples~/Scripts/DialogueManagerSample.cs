@@ -220,10 +220,15 @@ public class DialogueManagerSample : MonoBehaviour, IDialogueService
         // Shade: Automatically reject inputs during the box animation sequence
         if (m_BoxAnimationRoutine != null) return;
 
+        DialogueLine currentLine = m_CurrentConversation.ConversationLines[m_CurrentLineIndex];
+
         // Shade: If typewriter is currently active, skip to full line reveal instead of next line
         // Otherwise, handle standard line advancement logic
         if (m_Typewriter != null && m_Typewriter.IsTyping)
         {
+            // Shade: Reject inputs if the typewriter can't be skipped
+            if (!currentLine.CanSkipTypeWriter) return;
+
             m_Typewriter.Skip(playCachedEvent: true);
             return;
         }

@@ -28,6 +28,7 @@ namespace NekoDialogue.Editor
             "m_TailSettings",
             "m_FontSettings",
             "m_bUseTypeWriter",
+            "m_bCanSkipTypeWriter",
             "m_DialogueEmotion",
             "m_VoiceProfile"
         };
@@ -41,6 +42,7 @@ namespace NekoDialogue.Editor
             "Tail Settings",
             "Font Settings",
             "Use Typewriter",
+            "Skip Typewriter",
             "Dialogue Emotion",
             "Voice Profile"
         };

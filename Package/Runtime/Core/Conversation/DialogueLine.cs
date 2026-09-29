@@ -42,6 +42,9 @@ namespace NekoDialogue.Core.Conversation
         [SerializeField, Tooltip("Toggles whether the typewriter text reveal effect is active for this line.")]
         private bool m_bUseTypeWriter = true;
 
+        [SerializeField, Tooltip("Whether the player can skip the typewriter effect for this line.")]
+        private bool m_bCanSkipTypeWriter = true;
+
         [Header("Audio Settings")]
         [SerializeField, Tooltip("The emotional state associated with this line, dictating voice audio pitches and typewriter speeds.")]
         private eDialogueEmotion m_DialogueEmotion = eDialogueEmotion.Neutral;
@@ -60,6 +63,7 @@ namespace NekoDialogue.Core.Conversation
         public SpeechBubbleTailSettings TailSettings => m_TailSettings;
         public FontSettings FontSettings => m_FontSettings;
         public bool UseTypeWriter => m_bUseTypeWriter;
+        public bool CanSkipTypeWriter => m_bCanSkipTypeWriter;
         public eDialogueEmotion DialogueEmotion => m_DialogueEmotion;
         public VoiceProfileSO VoiceProfile => m_VoiceProfile;
         public AudioClip AdvanceSound => m_AdvanceSound;

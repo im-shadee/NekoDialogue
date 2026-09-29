@@ -51,6 +51,7 @@ MonoBehaviour:
           m_Font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
           m_FontSize: 68
         m_bUseTypeWriter: 1
+        m_bCanSkipTypeWriter: 1
         m_DialogueEmotion: 2
         m_VoiceProfile: {fileID: 11400000, guid: eedf3985a3b4a0e40849f059b985b1b0, type: 2}
         m_AdvanceSound: {fileID: 0}
@@ -86,6 +87,7 @@ MonoBehaviour:
           m_Font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
           m_FontSize: 68
         m_bUseTypeWriter: 1
+        m_bCanSkipTypeWriter: 1
         m_DialogueEmotion: 0
         m_VoiceProfile: {fileID: 11400000, guid: eedf3985a3b4a0e40849f059b985b1b0, type: 2}
         m_AdvanceSound: {fileID: 0}
@@ -121,6 +123,7 @@ MonoBehaviour:
           m_Font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
           m_FontSize: 68
         m_bUseTypeWriter: 1
+        m_bCanSkipTypeWriter: 1
         m_DialogueEmotion: 0
         m_VoiceProfile: {fileID: 11400000, guid: eedf3985a3b4a0e40849f059b985b1b0, type: 2}
         m_AdvanceSound: {fileID: 0}
